@@ -51,7 +51,7 @@ app.use(express.static('public'));
 Resolved:
 install missing packages
 correct sequelize options
-correct import/export
+correct import/export...
 
 */
 
