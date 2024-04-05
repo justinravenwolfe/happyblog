@@ -36,7 +36,12 @@ const sess = {
 
 
 // Inform Express.js on which template engine to use
-const hbs=require('express-handlebars');
+const exphbs = require('express-handlebars');
+const hbs = exphbs.create({helpers:{
+  block:()=>{
+
+  }
+}});
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
@@ -50,6 +55,9 @@ app.use(session(sess));
 
 
 
+app.get("/",(req,res)=>{
+  res.render("home")
+})
 // Routes
 app.use(routes);
 
