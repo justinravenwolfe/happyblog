@@ -4,7 +4,7 @@ const session = require('express-session')
 
 
 //TODO
-const routes = require('./controllers');
+const routes = require('./routes');
 
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const sequelize = require('./config/connection.js'); // import your Sequelize instance
@@ -34,7 +34,7 @@ const sess = {
   })
 }; 
 
-app.use(session(sess));
+
 // Inform Express.js on which template engine to use
 const hbs=require('express-handlebars');
 
@@ -46,20 +46,18 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 //Should not change 
 app.use(express.static('public'));
+app.use(session(sess));
 
-/*
-Resolved:
-install missing packages
-correct sequelize options
-correct import/export...
-*/
 
 
 // Routes
-//app.use(routes);
+app.use(routes);
+
+sequelize.sync({ force: false }).then(() => {
+  app.listen(PORT, () => console.log('Now listening'));
+});
+
 
 // Start server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+
 // node server.js <- running script 

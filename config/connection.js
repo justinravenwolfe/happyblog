@@ -9,7 +9,7 @@ if (process.env.JAWSDB_URL) {
   sequelize = new Sequelize(
     'happy_data',
     'root',
-    null 
+    "password"
     ,
     {
       host: 'localhost',
