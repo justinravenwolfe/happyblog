@@ -1,8 +1,20 @@
 // server.js
 const express = require('express');
 const session = require('express-session')
+
+
 //TODO
 const routes = require('./controllers');
+
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const sequelize = require('./config/connection.js'); // import your Sequelize instance
+
+
+//npm install connect-session-sequelize
+
+//const sequelize = require('./path/to/your/sequelize-instance'); // import your Sequelize instance
+
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -21,8 +33,11 @@ const sess = {
     db: sequelize
   })
 }; 
+
 app.use(session(sess));
 // Inform Express.js on which template engine to use
+const hbs=require('express-handlebars');
+
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
@@ -32,10 +47,17 @@ app.use(express.json());
 //Should not change 
 app.use(express.static('public'));
 
+/*
+Resolved:
+install missing packages
+correct sequelize options
+correct import/export
+
+*/
 
 
 // Routes
-app.use(routes);
+//app.use(routes);
 
 // Start server
 app.listen(PORT, () => {

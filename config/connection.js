@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-require('dotenv').config();
+require('dotenv').config(); ///not found  : npm i dotenv
 
 let sequelize;
 
@@ -8,13 +8,17 @@ if (process.env.JAWSDB_URL) {
 } else {
   sequelize = new Sequelize(
     'happy_data',
-    'root', 
+    'root',
+    null 
+    ,
     {
       host: 'localhost',
       dialect: 'mysql',
+      
       port: 3306
     }
   );
 }
-
+//options.dialect = urlParts.protocol.replace(/:$/, "");
+///Cannot read property of null , reading replace("")
 module.exports = sequelize;
