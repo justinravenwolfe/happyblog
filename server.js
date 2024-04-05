@@ -52,7 +52,6 @@ Resolved:
 install missing packages
 correct sequelize options
 correct import/export...
-
 */
 
 
