@@ -38,7 +38,7 @@ const sess = {
 // Inform Express.js on which template engine to use
 const exphbs = require('express-handlebars');
 const hbs = exphbs.create({helpers:{
-  block:()=>{
+  block:()=>{  //what should block helper do?
 
   }
 }});
