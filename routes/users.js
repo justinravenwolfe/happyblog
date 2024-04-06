@@ -1,81 +1,74 @@
-const router=require("express").Router();
-const  User=require("../models/User.js")
-/*
-User:
- [post] users/signup   (to sign up a new user)
- [post] users/signin   (to sign in )
+const { User } = require('../models'); // Import the User model
 
- */
-
- /*Review this code*/
-router.post("/signup",async(req,res)=>{
-  try{
-   const userData= await User.create(req.body )
-   req.session.save(() => {
-    req.session.user_id = userData.id;
-    req.session.logged_in = true;
-    
-    res.json({ user: userData, message: 'You are now logged in!' });
-  });
-    
-  }catch(err){
-    console.log(err)
-    res.send("Error")
-
-  }
-})
-router.post('/login', async (req, res) => {
-  try {
-    const userData = await User.findOne({ where: { username: req.body.username} });
-
-    if (!userData) {
-      res
-        .status(400)
-        .json({ message: 'Incorrect username or password, please try again' });
-      return;
+const userController = {
+  // Get all users
+  getAllUsers: async (req, res) => {
+    try {
+      const users = await User.findAll();
+      res.json(users);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
     }
+  },
 
-    const validPassword = await userData.checkPassword(req.body.password);
-
-    if (!validPassword) {
-      res
-        .status(400)
-        .json({ message: 'Incorrect username or password, please try again' });
-      return;
+  // Get user by ID
+  getUserById: async (req, res) => {
+    try {
+      const user = await User.findByPk(req.params.id);
+      if (!user) {
+        res.status(404).json({ error: 'User not found' });
+        return;
+      }
+      res.json(user);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
     }
+  },
 
-    req.session.save(() => {
-      req.session.user_id = userData.id;
-      req.session.logged_in = true;
-      
-      res.json({ user: userData, message: 'You are now logged in!' });
-    });
+  // Create a new user
+  createUser: async (req, res) => {
+    try {
+      const newUser = await User.create(req.body);
+      res.status(201).json(newUser);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  },
 
-  } catch (err) {
-    res.status(400).json(err);
-  }
-});
+  // Update a user
+  updateUser: async (req, res) => {
+    try {
+      const user = await User.findByPk(req.params.id);
+      if (!user) {
+        res.status(404).json({ error: 'User not found' });
+        return;
+      }
+      await user.update(req.body);
+      res.json(user);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  },
 
-router.post('/logout', (req, res) => {
-  console.log("Logout Entered");
-  if (req.session.logged_in) {
-    req.session.destroy(() => {
+  // Delete a user
+  deleteUser: async (req, res) => {
+    try {
+      const user = await User.findByPk(req.params.id);
+      if (!user) {
+        res.status(404).json({ error: 'User not found' });
+        return;
+      }
+      await user.destroy();
       res.status(204).end();
-    });
-  } else {
-    res.status(404).end();
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
   }
-});
+};
 
-
-
-
-
-
-
-
-
-
-
-
-module.exports=router
+module.exports = userController;
