@@ -1,27 +1,27 @@
 const express = require('express');
 const router = express.Router();
 
-const HomeController = require('./controllers/HomeController');
-const DashboardController = require('./controllers/DashboardController');
-const SessionController = require('./controllers/SessionController');
-const PostController = require('./controllers/PostController');
-const CommentController = require('./controllers/CommentController');
+
+
+const UserController = require('../controllers/userController');
+const PostController = require('../controllers/PostController');
+const CommentController = require('./controllers/commentController');
 
 // Homepage route
-router.get('/', HomeController.index);
+router.get('/', './views/home.handlebars');
 
 // Signup and login routes
-router.get('/signup', SessionController.signupForm);
-router.post('/signup', SessionController.signup);
-router.get('/login', SessionController.loginForm);
-router.post('/login', SessionController.login);
+router.get('/signup', './views/signuplogin.handlebars');
+router.post('/signup',  './views/signuplogin.handlebars');
+router.get('/login',  './views/signuplogin.handlebars');
+router.post('/login',  './views/signuplogin.handlebars');
 
 // Logout route
 router.get('/logout', SessionController.logout);
 
 // Dashboard routes
-router.get('/dashboard', DashboardController.index);
-router.post('/posts', DashboardController.createPost);
+router.get('/dashboard', './views/dashboard.handlebars');
+router.post('/posts', './views/post.handlebars');
 router.delete('/posts/:id', DashboardController.deletePost);
 router.put('/posts/:id', DashboardController.updatePost);
 
