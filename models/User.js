@@ -43,7 +43,7 @@ password:{
             return updatedUserData; 
         },
     },
-    sequelize,
+    sequelize: sequelize,
     freezeTableName: true,
     underscored: true, 
     modelName: 'user',

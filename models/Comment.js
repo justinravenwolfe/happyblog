@@ -16,8 +16,9 @@ Comment.init({
     body:{
         type: DataTypes.STRING,
         allowNull: false,
-    },
-    sequelize,
+    },},
+
+    {sequelize: sequelize,
     freezeTableName: true,
     underscored: true, 
     modelName: 'comment',  

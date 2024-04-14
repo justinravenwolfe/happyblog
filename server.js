@@ -4,7 +4,7 @@ const session = require('express-session')
 
 
 //TODO
-const routes = require('./routes');
+//const routes = require('./routes');
 
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const sequelize = require('./config/connection.js'); // import your Sequelize instance
@@ -59,7 +59,7 @@ app.get("/",(req,res)=>{
   res.render("home")
 })
 // Routes
-app.use(routes);
+//app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log('Now listening'));
