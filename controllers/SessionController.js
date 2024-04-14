@@ -1,14 +1,14 @@
 exports.signupForm = (req, res) => {
-    res.render('../views/signuplogin.handlebars');
+    res.render('signuplogin.handlebars');
 };
 exports.signup = (req, res) => {
-    res.redirect('../views/signuplogin.handlebars')
+    res.redirect('signuplogin')
 };
 exports.loginForm = (req, res) => {
-    res.redirect('../views/signuplogin.handlebars')
+    res.redirect('signuplogin')
 };
 exports.login = (req, res) => {
-    res.redirect('../views/dashboard.handlebars');
+    res.redirect('dashboard');
 }
 exports.logout = (req, res) => {
     res.redirect('/');

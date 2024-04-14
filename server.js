@@ -4,6 +4,8 @@ const session = require('express-session');
 const routes = require('./routes/routes.js');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const sequelize = require('./config/connection.js');
+const cors = require('cors');
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -42,6 +44,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
 app.use(session(sess));
+app.use(cors({
+  origin: 'http://localhost:3000', // replace with the domain of your client-side app
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+}));
 
 // Routes
 app.use(routes);

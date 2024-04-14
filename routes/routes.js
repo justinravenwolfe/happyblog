@@ -7,7 +7,7 @@ const postController = require('../controllers/postController.js');
 const userController = require('../controllers/userController.js');
 const dashboardController = require('../controllers/DashboardController.js');
 const SessionController = require('../controllers/SessionController.js');
-const homeController = require('../controllers/DashboardController.js'); 
+const homeController = require('../controllers/homecontroller.js'); 
 
 // Homepage route
 router.get('/', homeController.index);
