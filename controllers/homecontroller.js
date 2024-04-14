@@ -1,3 +1,5 @@
+// controllers/homeController.js
 exports.index = (req, res) => {
-    res.render('../views/home.handlebars'); //render the home view 
-}
+    console.log('****Rendering homepage******');
+    res.render('home'); // Assuming home.handlebars is in the views directory
+};

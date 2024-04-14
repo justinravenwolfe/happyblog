@@ -1,20 +1,9 @@
 // server.js
 const express = require('express');
-const session = require('express-session')
-
-
-//TODO
+const session = require('express-session');
 const routes = require('./routes/routes.js');
-
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const sequelize = require('./config/connection.js'); // import your Sequelize instance
-
-
-//npm install connect-session-sequelize
-
-//const sequelize = require('./path/to/your/sequelize-instance'); // import your Sequelize instance
-
-
+const sequelize = require('./config/connection.js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -33,39 +22,30 @@ const sess = {
     db: sequelize
   })
 }; 
+// Define the 'block' helper
 
 
 // Inform Express.js on which template engine to use
 const exphbs = require('express-handlebars');
-const hbs = exphbs.create({helpers:{
-  block:()=>{  //what should block helper do?
+const hbs = exphbs.create({});
 
-  }
-}});
+hbs.handlebars.registerHelper('block', function(name) {
+  const blocks = this._blocks;
+  const content = blocks && blocks[name];
+  return content ? content.join('\n') : null;
+});
 
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
 app.use(express.urlencoded({ extended: true }));
-//Sending everything with JSONS <- Javascript object
 app.use(express.json());
-//Should not change 
 app.use(express.static('public'));
 app.use(session(sess));
 
-
-
-app.get("/",(req,res)=>{
-  res.render("home")
-})
 // Routes
 app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log('Now listening'));
 });
-
-
-// Start server
-
-// node server.js <- running script 

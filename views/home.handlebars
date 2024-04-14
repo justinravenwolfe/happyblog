@@ -1,1 +1,53 @@
-Home page
+<!-- views/home.handlebars -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Blog</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Tech Blog</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/signup">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="featured-posts">
+            <h2>Featured Posts</h2>
+            <ul>
+                {{#each featuredPosts}}
+                    <li>
+                        <h3>{{ title }}</h3>
+                        <p>{{ excerpt }}</p>
+                        <a href="/posts/{{ id }}">Read more</a>
+                    </li>
+                {{/each}}
+            </ul>
+        </section>
+        <section id="latest-posts">
+            <h2>Latest Posts</h2>
+            <ul>
+                {{#each latestPosts}}
+                    <li>
+                        <h3>{{ title }}</h3>
+                        <p>{{ excerpt }}</p>
+                        <a href="/posts/{{ id }}">Read more</a>
+                    </li>
+                {{/each}}
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Tech Blog</p>
+    </footer>
+</body>
+</html>

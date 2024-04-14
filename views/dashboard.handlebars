@@ -1,0 +1,44 @@
+<!-- views/dashboard.handlebars -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+</head>
+<body>
+    <header>
+        <h1>Welcome, {{ user.username }}</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Your Dashboard</h2>
+        <section id="posts">
+            <h3>Your Posts</h3>
+            <ul>
+                {{#each user.posts}}
+                    <li>{{ title }}</li>
+                {{/each}}
+            </ul>
+        </section>
+        <section id="comments">
+            <h3>Your Comments</h3>
+            <ul>
+                {{#each user.comments}}
+                    <li>{{ body }}</li>
+                {{/each}}
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Your Blog</p>
+    </footer>
+</body>
+</html>

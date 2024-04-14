@@ -1,32 +1,37 @@
 const express = require('express');
 const router = express.Router();
+const exphbs = require('express-handlebars'); 
 
-
-
-const UserController = require('../controllers/userController');
-const PostController = require('../controllers/PostController');
-const CommentController = require('./controllers/commentController');
+const commentController = require('../controllers/commentController.js');
+const postController = require('../controllers/postController.js');
+const userController = require('../controllers/userController.js');
+const dashboardController = require('../controllers/DashboardController.js');
+const SessionController = require('../controllers/SessionController.js');
+const homeController = require('../controllers/DashboardController.js'); 
 
 // Homepage route
-router.get('/', './views/home.handlebars');
+router.get('/', homeController.index);
 
-// Signup and login routes
-router.get('/signup', './views/signuplogin.handlebars');
-router.post('/signup',  './views/signuplogin.handlebars');
-router.get('/login',  './views/signuplogin.handlebars');
-router.post('/login',  './views/signuplogin.handlebars');
+// Signup routes
+router.get('/signup', SessionController.signupForm);
+router.post('/signup', SessionController.signup);
+
+// Login routes
+router.get('/login', SessionController.loginForm);
+router.post('/login', SessionController.login);
 
 // Logout route
 router.get('/logout', SessionController.logout);
 
 // Dashboard routes
-router.get('/dashboard', './views/dashboard.handlebars');
-router.post('/posts', './views/post.handlebars');
-router.delete('/posts/:id', DashboardController.deletePost);
-router.put('/posts/:id', DashboardController.updatePost);
+router.get('/dashboard', dashboardController.index);
+router.post('/posts', dashboardController.createPost);
+router.delete('/posts/:id', dashboardController.deletePost);
+router.put('/posts/:id', dashboardController.updatePost);
 
 // Post routes
-router.get('/posts/:id', PostController.show);
-router.post('/posts/:id/comments', CommentController.create);
+router.get('/posts/:id', postController.show);
+router.post('/posts/:id/comments', commentController.create);
+
 
 module.exports = router;
