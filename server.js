@@ -8,7 +8,7 @@ const cors = require('cors');
 
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 80;
 
 const sess = {
   secret: 'Super secret secret',
@@ -45,7 +45,7 @@ app.use(express.json());
 app.use(express.static('public'));
 app.use(session(sess));
 app.use(cors({
-  origin: 'http://localhost:3000', // replace with the domain of your client-side app
+  origin: 'https://happyblog-c3d99f0a3728.herokuapp.com/', // replace with the domain of your client-side app
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
 }));
