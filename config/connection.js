@@ -27,11 +27,11 @@ require('dotenv').config();
 
 const sequelize = new Sequelize(
   
-  'happy_data',
-     'root',
-    "password",
+  'u9dhbkxv98mcagol',
+     'u5ifcozbtu7i9vil',
+    "l154pepp9qzk2l5d",
   {
-    host: 'localhost',
+    host: 't89yihg12rw77y6f.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
     dialect: 'mysql',
     port: 3306,
   }
